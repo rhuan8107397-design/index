@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Festa a Fantasia STT · Snack Time Together</title>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--grape:#2A1250;--pink:#FF3D81;--sun:#FFC93C;--mint:#3DDBB0;--cream:#FFF6E5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth;background:#2A1250}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--grape);color:var(--cream);font:600 1.05rem/1.6 Nunito,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,.big{font-family:'Bagel Fat One','Trebuchet MS',sans-serif;font-weight:400;margin:0}
+section{padding:3.5rem 1.2rem;max-width:960px;margin:0 auto;text-align:center}
+h2{font-size:clamp(1.8rem,6vw,2.8rem);color:var(--mint);margin-bottom:.6rem}
+a,button{font:inherit}
+:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+.btn{background:var(--pink);color:#fff;border:0;border-radius:99px;padding:.8rem 1.6rem;font-weight:800;cursor:pointer;box-shadow:0 5px 0 #b8175a;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px) rotate(-1deg)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #b8175a}
+
+.hero{position:relative;text-align:center;padding:4.5rem 1.2rem 3.5rem;background:radial-gradient(circle at 50% 0,#5a26a8,transparent 70%);overflow:hidden}
+.hero p{margin:.4rem auto 1.4rem;max-width:34ch}
+h1{font-size:clamp(2.7rem,11vw,6.2rem);line-height:.95;color:var(--sun);text-shadow:4px 4px 0 var(--pink)}
+.tag{display:inline-block;background:var(--mint);color:var(--grape);font-weight:800;padding:.2rem .9rem;border-radius:99px;transform:rotate(-3deg);margin-bottom:1rem}
+.fl{position:absolute;font-size:2.2rem;animation:fl 5s ease-in-out infinite;user-select:none}
+.fl:nth-of-type(1){left:6%;top:12%}.fl:nth-of-type(2){right:7%;top:18%;animation-delay:-1.5s}
+.fl:nth-of-type(3){left:12%;bottom:10%;animation-delay:-3s}.fl:nth-of-type(4){right:12%;bottom:14%;animation-delay:-2s}
+@keyframes fl{50%{transform:translateY(-16px) rotate(10deg)}}
+
+.ticket{background:var(--cream);color:var(--grape);border:4px dashed var(--pink);border-radius:20px;padding:1.6rem 1.2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.2rem;transform:rotate(-1.5deg);transition:transform .3s;text-align:center}
+.ticket:hover{transform:rotate(0)}
+.ticket span{display:block;font-size:1.8rem}
+.ticket b{display:block;font-family:'Bagel Fat One','Trebuchet MS',sans-serif;font-weight:400;font-size:1.25rem;color:var(--pink)}
+
+.cd{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
+.cd div{background:var(--sun);color:var(--grape);border-radius:16px;min-width:74px;padding:.6rem .4rem}
+.cd b{display:block;font-family:'Bagel Fat One','Trebuchet MS',sans-serif;font-weight:400;font-size:2.2rem;line-height:1}
+.cd small{font-weight:800}
+
+.pick{background:rgba(255,255,255,.08);border-radius:24px;padding:1.6rem 1rem;margin-top:1.2rem}
+#emoji{font-size:5rem;line-height:1.1;transition:transform .3s}
+#emoji.pop{animation:pop .5s}
+@keyframes pop{40%{transform:scale(1.4) rotate(-12deg)}}
+#nome{font-size:1.6rem;color:var(--sun)}
+
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-top:1.4rem}
+.gal div{aspect-ratio:1;border:3px dashed rgba(255,246,229,.4);border-radius:18px;display:grid;place-items:center;font-size:2.2rem;transition:transform .2s,border-color .2s}
+.gal div:hover{transform:rotate(-4deg) scale(1.05);border-color:var(--sun)}
+.soon{display:inline-block;background:var(--pink);color:#fff;font-family:'Bagel Fat One','Trebuchet MS',sans-serif;font-size:1.8rem;padding:.4rem 1.4rem;border-radius:16px;transform:rotate(2deg)}
+footer{text-align:center;padding:2rem 1rem 3rem;opacity:.8}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:99}
+@media (prefers-reduced-motion:reduce){.fl{animation:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="cf" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <span class="fl" aria-hidden="true">🎭</span><span class="fl" aria-hidden="true">🍿</span><span class="fl" aria-hidden="true">🧙</span><span class="fl" aria-hidden="true">🍩</span>
+  <span class="tag">STT · Snack Time Together</span>
+  <h1>Festa a<br>Fantasia</h1>
+  <p>A festa do trimestre chegou. Escolha seu personagem, traga o lanche e venha brilhar com a gente!</p>
+  <button class="btn" id="btnConfete">🎉 Soltar confete</button>
+</header>
+
+<section id="info">
+  <h2>Detalhes da festa</h2>
+  <div class="ticket">
+    <div><span>🎭</span>Tema<b>Fantasia livre: venha como quiser!</b></div>
+    <div><span>📅</span>Data<b id="tData">Data a definir</b></div>
+    <div><span>📍</span>Local<b>A definir</b></div>
+    <div><span>⏰</span>Horário<b>A definir</b></div>
+  </div>
+</section>
+
+<section id="contagem">
+  <h2>Contagem regressiva</h2>
+  <div class="cd" id="cd" role="timer" aria-live="off">
+    <div><b>--</b><small>dias</small></div><div><b>--</b><small>horas</small></div>
+    <div><b>--</b><small>min</small></div><div><b>--</b><small>seg</small></div>
+  </div>
+  <p id="cdMsg">⏳ O relógio começa a correr assim que a data for divulgada.</p>
+</section>
+
+<section id="fantasia">
+  <h2>Sem ideia de fantasia?</h2>
+  <p>Deixe a sorte escolher por você.</p>
+  <div class="pick">
+    <div id="emoji" aria-hidden="true">🎁</div>
+    <div class="big" id="nome">Clique e descubra</div>
+    <p id="dica" aria-live="polite">Sua fantasia aparece aqui.</p>
+    <button class="btn" id="btnSorteio">🎲 Sortear fantasia</button>
+  </div>
+</section>
+
+<section id="galeria">
+  <h2>Galeria de fotos</h2>
+  <span class="soon">📸 Em Breve!</span>
+  <p>As fotos entram aqui depois da festa. Capriche na fantasia!</p>
+  <div class="gal" aria-hidden="true"><div>📷</div><div>🎭</div><div>📷</div><div>🍿</div><div>📷</div><div>🎉</div></div>
+</section>
+
+<footer>Feito pela equipe STT · Snack Time Together 🍿</footer>
+
+<script>
+// Quando a data for divulgada, troque null por algo como "2026-12-05T19:00:00"
+const DATA_FESTA = null;
+
+const nums = document.querySelectorAll('#cd b'), msg = document.getElementById('cdMsg');
+function tick(){
+  if(!DATA_FESTA) return;
+  const alvo = new Date(DATA_FESTA);
+  document.getElementById('tData').textContent = alvo.toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
+  const s = Math.max(0, Math.floor((alvo - Date.now())/1000));
+  [Math.floor(s/86400), Math.floor(s%86400/3600), Math.floor(s%3600/60), s%60]
+    .forEach((v,i)=> nums[i].textContent = String(v).padStart(2,'0'));
+  msg.textContent = s===0 ? '🎉 É hoje! A festa começou!' : 'Faltam poucos lanches para a festa!';
+}
+tick(); setInterval(tick,1000);
+
+// Confete
+const cv = document.getElementById('cf'), cx = cv.getContext('2d');
+const calma = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let P = [], raf = null;
+function tam(){ cv.width = innerWidth; cv.height = innerHeight; }
+tam(); addEventListener('resize', tam);
+function confete(x,y){
+  if(calma) return;
+  const cores = ['#FF3D81','#FFC93C','#3DDBB0','#FFF6E5'];
+  for(let i=0;i<90;i++) P.push({x,y,vx:(Math.random()-.5)*12,vy:Math.random()*-12-2,r:Math.random()*5+3,c:cores[i%4],a:Math.random()*6,va:(Math.random()-.5)*.4,l:110});
+  if(!raf) raf = requestAnimationFrame(loop);
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  P = P.filter(p=>p.l>0 && p.y<cv.height+20);
+  P.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy; p.vy+=.35; p.vx*=.99; p.a+=p.va; p.l--;
+    cx.save(); cx.translate(p.x,p.y); cx.rotate(p.a); cx.fillStyle=p.c; cx.fillRect(-p.r,-p.r/2,p.r*2,p.r); cx.restore();
+  });
+  raf = P.length ? requestAnimationFrame(loop) : null;
+}
+document.getElementById('btnConfete').addEventListener('click',e=>{
+  const b = e.currentTarget.getBoundingClientRect();
+  confete(b.left+b.width/2, b.top);
+});
+
+// Sorteio de fantasia
+const F = [
+  ['🧛','Vampiro(a) de lanchonete','Capa preta e batom vermelho. Nunca erra.'],
+  ['🧙','Bruxo(a) do intervalo','Chapéu pontudo e uma varinha de pirulito.'],
+  ['🦸','Super-herói(na) do lanche','Capa feita de toalha e um "S" de STT no peito.'],
+  ['🏴‍☠️','Pirata do salgadinho','Tapa-olho, lenço na cabeça e um baú de doces.'],
+  ['🤖','Robô comedor de pipoca','Caixas de papelão pintadas de prata.'],
+  ['👽','Alienígena faminto','Roupa verde e antenas de fita.'],
+  ['🦄','Unicórnio de confeitaria','Chifre de cartolina e muito glitter.'],
+  ['🕵️','Detetive do lanche perdido','Casaco comprido e uma lupa de mentira.']
+];
+let ult = -1;
+document.getElementById('btnSorteio').addEventListener('click',e=>{
+  let i; do{ i = Math.floor(Math.random()*F.length); }while(i===ult); ult = i;
+  const em = document.getElementById('emoji');
+  em.textContent = F[i][0]; document.getElementById('nome').textContent = F[i][1]; document.getElementById('dica').textContent = F[i][2];
+  em.classList.remove('pop'); void em.offsetWidth; em.classList.add('pop');
+  const b = e.currentTarget.getBoundingClientRect();
+  confete(b.left+b.width/2, b.top);
+});
+</script>
+</body>
+</html>
